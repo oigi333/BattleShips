@@ -18,6 +18,9 @@ namespace Client
             RenderWindow window = new RenderWindow(new VideoMode(1000,500),"BattleShips");
             window.Closed += (sender, eventArg) => window.Close();
 
+            LanguageManager.Init("res/lang.json");
+            throw new Exception(LanguageManager.Languages["en"].Name);
+
             InitializeGameStates(window);
 
             Stopwatch deltaTimer = new Stopwatch();
