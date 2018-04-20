@@ -1,18 +1,29 @@
 import os
 
 references = [
-    "",
-    "dependencies\\lib\\sfmlnet-audio-2.dll",
-    "dependencies\\lib\\sfmlnet-graphics-2.dll",
-    "dependencies\\lib\\sfmlnet-system-2.dll",
-    "dependencies\\lib\\sfmlnet-window-2.dll",
+	'dependencies\\lib\\sfmlnet-audio-2.dll',
+	'dependencies\\lib\\sfmlnet-graphics-2.dll',
+	'dependencies\\lib\\sfmlnet-system-2.dll',
+	'dependencies\\lib\\sfmlnet-window-2.dll'
 ]
 
-cscPath = "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\MSBuild\\15.0\\Bin\\Roslyn\\"
+src = 'src\\*.cs'
+lib = 'dependencies\\extlibs\\'
+out = 'out\\BattleShipsClient.exe'
+csc = 'C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\MSBuild\\15.0\\Bin\\Roslyn\\csc.exe'
+
+compilerArgs = [
+	'-out:' + out,
+	'-langversion:7',
+	'-lib:' + lib,
+	'-platform:x64',
+	'-reference:' + ','.join(references)
+]
 
 commands = [
-    "\""+cscPath+"csc.exe\" code\\*.cs -out:output\\BattleShips.exe -langversion:7 -lib:dependencies\\extlibs\\ -platform:x64" + " -reference:" + ",".join(references),
+	' '.join(['"' + csc + '"', src, ' '.join(compilerArgs)])
 ]
 
-for command in commands:
-    os.system(command)
+for cmd in commands:
+	# os.system(cmd)
+	print('\n' + cmd)
