@@ -42,23 +42,15 @@ namespace GameStates
         public void Update(RenderWindow window) 
         {
             Vector2i mousePosition = Mouse.GetPosition(window); 
-            if (_playText.GetGlobalBounds().Contains(mousePosition.X, mousePosition.Y)) 
+            (Text Text, Action SthToDo)[] buttons = {( _playText, () => {Console.WriteLine("[Start the game]");} ), ( _exitText, () => {window.Close();} ) }; //Chciałeś zwięźlej?
+            foreach (var button in buttons)
             {
-                _playText.Color = Color.Cyan; 
-                if (Mouse.IsButtonPressed(Mouse.Button.Left))
-                    Console.WriteLine("[Start the game]"); 
-            }
-            else
-                _playText.Color = Color.White; 
-
-            if (_exitText.GetGlobalBounds().Contains(mousePosition.X, mousePosition.Y)) 
-            {
-                _exitText.Color = Color.Cyan; 
-                if (Mouse.IsButtonPressed(Mouse.Button.Left))
-                    window.Close(); 
-            }
-            else
-                _exitText.Color = Color.White;
+                if(button.Text.GetGlobalBounds().Contains(mousePosition.X, mousePosition.Y)? ( button.Text.Color = Color.Cyan) == Color.Cyan: ( button.Text.Color = Color.White) == Color.Cyan) //Proszę bardzo
+                {
+                    if (Mouse.IsButtonPressed(Mouse.Button.Left))
+                        button.SthToDo();
+                }
+            } // Na pewno nie możesz narzekać, że dużo linijek
         }
     }
 }
