@@ -3,6 +3,7 @@ using SFML.Window;
 using SFML.Graphics;
 using SFML.System;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace GameStates
 {
@@ -42,6 +43,12 @@ namespace GameStates
         public void Update(RenderWindow window) 
         {
             Vector2i mousePosition = Mouse.GetPosition(window); 
+
+            //Też nie wiem jakim cudem działa
+            (new List<(Text Text, Action SthToDo)>(){( _playText, () => {Console.WriteLine("[Start the game]");} ), ( _exitText, () => {window.Close();} ) }).ForEach(button =>{if((button.Text.GetGlobalBounds().Contains(mousePosition.X, mousePosition.Y)? ( button.Text.Color = Color.Cyan) == Color.Cyan: ( button.Text.Color = Color.White) == Color.Cyan)&&Mouse.IsButtonPressed(Mouse.Button.Left)) button.SthToDo(); });
+
+            /*
+            Vector2i mousePosition = Mouse.GetPosition(window); 
             (Text Text, Action SthToDo)[] buttons = {( _playText, () => {Console.WriteLine("[Start the game]");} ), ( _exitText, () => {window.Close();} ) }; //Chciałeś zwięźlej?
             foreach (var button in buttons)
             {
@@ -51,6 +58,8 @@ namespace GameStates
                         button.SthToDo();
                 }
             } // Na pewno nie możesz narzekać, że dużo linijek
+            */
         }
+        
     }
 }
