@@ -30,7 +30,6 @@ namespace GameStates
                 (window.Size.X - _exitText.GetGlobalBounds().Width) / 2, 
                 _playText.Position.Y + _playText.GetGlobalBounds().Height + 30); 
         }
-        
 
         public void Show(RenderWindow window) 
         {
@@ -43,7 +42,11 @@ namespace GameStates
         public void Update(RenderWindow window) 
         {
             Vector2i mousePosition = Mouse.GetPosition(window); 
-            (Text Text, Action SthToDo)[] buttons = {( _playText, () => {Console.WriteLine("[Start the game]");} ), ( _exitText, () => {window.Close();} ) }; // Tworze tablice tupli(Text,Delegat)
+            (Text Text, Action SthToDo)[] buttons = {
+                (_playText, () => { GameStateManager.Current = "BeforeGame"; }),
+                (_exitText, () => { window.Close(); })
+            };
+            
             foreach (var button in buttons)
             {
                 if(button.Text.GetGlobalBounds().Contains(mousePosition.X, mousePosition.Y))
@@ -55,6 +58,7 @@ namespace GameStates
                 else button.Text.Color = Color.White;
             } 
 
+            // Funny One-liner:
             // (new List<(Text Text, Action SthToDo)>(){( _playText, () => {Console.WriteLine("[Start the game]");} ), ( _exitText, () => {window.Close();} ) }).ForEach(button =>{if((button.Text.GetGlobalBounds().Contains(mousePosition.X, mousePosition.Y)? ( button.Text.Color = Color.Cyan) == Color.Cyan: ( button.Text.Color = Color.White) == Color.Cyan)&&Mouse.IsButtonPressed(Mouse.Button.Left)) button.SthToDo(); });
         }
         

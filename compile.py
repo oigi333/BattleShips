@@ -1,12 +1,10 @@
 import os
 import sys
 
-
 debug = False
 if len(sys.argv) > 1:
 	if sys.argv[1] == "debug":
 		debug = True
-
 
 references = [
 	'dependencies\\lib\\sfmlnet-audio-2.dll',

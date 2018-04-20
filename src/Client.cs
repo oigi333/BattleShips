@@ -47,8 +47,8 @@ namespace Client
 
         static void InitializeGameStates(RenderWindow window)
         {
-            GameStates.GameStateManager.Current = "Menu";
             GameStates.GameStateManager.Add<GameStates.Menu>("Menu", window);
+            GameStates.GameStateManager.Current = "Menu";
         }
     }
 }
