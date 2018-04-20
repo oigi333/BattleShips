@@ -1,4 +1,12 @@
 import os
+import sys
+
+
+debug = False
+if len(sys.argv) > 1:
+	if sys.argv[1] == "debug":
+		debug = True
+
 
 references = [
 	'dependencies\\lib\\sfmlnet-audio-2.dll',
@@ -19,8 +27,9 @@ compilerArgs = [
 	'-reference:' + ','.join(references),
 	'-langversion:7',
 	'-platform:x64',
-	'-target:winexe'
+	'-target:winexe' if not debug else ''
 ]
+
 
 commands = [
 	' '.join(['"' + csc + '"', src, ' '.join(compilerArgs)]),
