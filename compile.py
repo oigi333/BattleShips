@@ -25,5 +25,4 @@ commands = [
 ]
 
 for cmd in commands:
-	# os.system(cmd)
-	print('\n' + cmd)
+	os.system(cmd)
