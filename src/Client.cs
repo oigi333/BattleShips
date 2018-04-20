@@ -20,7 +20,9 @@ namespace Client
             window.Closed += (sender, eventArg) => window.Close();
 
             LanguageManager.Init("res/lang.json");
-            throw new Exception(LanguageManager.Languages["en"].Name);
+            LanguageManager.SetCurrent("pl");
+
+            //throw new Exception(LanguageManager.Current.Name);
 
             InitializeGameStates(window);
 
