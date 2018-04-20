@@ -43,22 +43,19 @@ namespace GameStates
         public void Update(RenderWindow window) 
         {
             Vector2i mousePosition = Mouse.GetPosition(window); 
-
-            //Też nie wiem jakim cudem działa
-            (new List<(Text Text, Action SthToDo)>(){( _playText, () => {Console.WriteLine("[Start the game]");} ), ( _exitText, () => {window.Close();} ) }).ForEach(button =>{if((button.Text.GetGlobalBounds().Contains(mousePosition.X, mousePosition.Y)? ( button.Text.Color = Color.Cyan) == Color.Cyan: ( button.Text.Color = Color.White) == Color.Cyan)&&Mouse.IsButtonPressed(Mouse.Button.Left)) button.SthToDo(); });
-
-            /*
-            Vector2i mousePosition = Mouse.GetPosition(window); 
-            (Text Text, Action SthToDo)[] buttons = {( _playText, () => {Console.WriteLine("[Start the game]");} ), ( _exitText, () => {window.Close();} ) }; //Chciałeś zwięźlej?
+            (Text Text, Action SthToDo)[] buttons = {( _playText, () => {Console.WriteLine("[Start the game]");} ), ( _exitText, () => {window.Close();} ) }; // Tworze tablice tupli(Text,Delegat)
             foreach (var button in buttons)
             {
-                if(button.Text.GetGlobalBounds().Contains(mousePosition.X, mousePosition.Y)? ( button.Text.Color = Color.Cyan) == Color.Cyan: ( button.Text.Color = Color.White) == Color.Cyan) //Proszę bardzo
+                if(button.Text.GetGlobalBounds().Contains(mousePosition.X, mousePosition.Y))
                 {
+                    button.Text.Color = Color.Cyan;
                     if (Mouse.IsButtonPressed(Mouse.Button.Left))
                         button.SthToDo();
                 }
-            } // Na pewno nie możesz narzekać, że dużo linijek
-            */
+                else button.Text.Color = Color.White;
+            } 
+
+            // (new List<(Text Text, Action SthToDo)>(){( _playText, () => {Console.WriteLine("[Start the game]");} ), ( _exitText, () => {window.Close();} ) }).ForEach(button =>{if((button.Text.GetGlobalBounds().Contains(mousePosition.X, mousePosition.Y)? ( button.Text.Color = Color.Cyan) == Color.Cyan: ( button.Text.Color = Color.White) == Color.Cyan)&&Mouse.IsButtonPressed(Mouse.Button.Left)) button.SthToDo(); });
         }
         
     }
