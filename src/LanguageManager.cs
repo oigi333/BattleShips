@@ -11,10 +11,6 @@ public class LanguageManager
     {
         String json = File.ReadAllText(fileName);
         Languages = JsonConvert.DeserializeObject<Dictionary<string, Language>>(json);
-        foreach (var pair in Languages["en"].Strings)
-        {
-            Console.WriteLine("{0}:{1}",pair.Key,pair.Value);
-        }
     }
 
     public static Language Current
@@ -22,15 +18,22 @@ public class LanguageManager
         get;
         private set;
     }
+    
     public static void SetCurrent(String lang)
     {
         Current = Languages[lang];
+
+        Console.WriteLine("Language: {0} enabled.", Current.Name);
+        foreach (var pair in Current.Strings)
+        {
+            Console.WriteLine("{0}: {1}", pair.Key, pair.Value);
+        }
     }
 
     public class Language
     {
+        [JsonProperty(PropertyName = "name")]
         public String Name;
-
         [JsonProperty(PropertyName = "lang")]
         public Dictionary<String,String> Strings;
 

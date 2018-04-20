@@ -22,8 +22,6 @@ namespace Client
             LanguageManager.Init("res/lang.json");
             LanguageManager.SetCurrent("pl");
 
-            //throw new Exception(LanguageManager.Current.Name);
-
             InitializeGameStates(window);
 
             Stopwatch deltaTimer = new Stopwatch();

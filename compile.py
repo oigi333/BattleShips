@@ -5,7 +5,7 @@ references = [
 	'dependencies\\lib\\sfmlnet-graphics-2.dll',
 	'dependencies\\lib\\sfmlnet-system-2.dll',
 	'dependencies\\lib\\sfmlnet-window-2.dll',
-	'dependencies\lib\Newtonsoft.Json.dll',
+	'dependencies\\lib\\Newtonsoft.Json.dll'
 ]
 
 src = 'src\\*.cs'
@@ -19,7 +19,7 @@ compilerArgs = [
 	'-reference:' + ','.join(references),
 	'-langversion:7',
 	'-platform:x64',
-	'-target:winexe'
+	# '-target:winexe'
 ]
 
 commands = [
