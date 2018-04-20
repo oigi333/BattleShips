@@ -1,4 +1,6 @@
-output/*
-dependencies/*
-output
-dependencies
+output/*.exe
+dependencies/examples
+dependencies/doc
+dependencies/license.txt
+dependencies/readme.txt
+
