@@ -17,14 +17,15 @@ compilerArgs = [
 	'-lib:' + lib,
 	'-reference:' + ','.join(references),
 	'-langversion:7',
-	'-platform:x64'
+	'-platform:x64',
+	'-target:winexe'
 ]
 
 commands = [
 	' '.join(['"' + csc + '"', src, ' '.join(compilerArgs)]),
-	'xcopy res\\* out\\res\\ /s /e',
-	'copy dependencies\\extlibs\\* out\\',
-	'copy dependencies\\lib\\* out\\'
+	'xcopy res out\\res\\ /s /e /y',
+	'xcopy dependencies\\extlibs out\\ /s /e /y',
+	'xcopy dependencies\\lib out\\ /s /e /y'
 ]
 
 for cmd in commands:

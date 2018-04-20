@@ -8,6 +8,7 @@ using SFML.Graphics;
 using SFML.System;
 using System.Diagnostics;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 
 namespace Client
 {
@@ -15,7 +16,7 @@ namespace Client
     {
         static void Main()
         {
-            RenderWindow window = new RenderWindow(new VideoMode(1000,500),"BattleShips");
+            RenderWindow window = new RenderWindow(new VideoMode(1000, 500), "BattleShips");
             window.Closed += (sender, eventArg) => window.Close();
 
             LanguageManager.Init("res/lang.json");

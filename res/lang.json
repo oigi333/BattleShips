@@ -12,7 +12,7 @@
 		"lang": {
 			"title": "Statki",
 			"play": "Graj",
-			"Quit": "Wyjście"
+			"quit": "Wyjście"
 		}
 	}
 }
