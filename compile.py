@@ -4,7 +4,8 @@ references = [
 	'dependencies\\lib\\sfmlnet-audio-2.dll',
 	'dependencies\\lib\\sfmlnet-graphics-2.dll',
 	'dependencies\\lib\\sfmlnet-system-2.dll',
-	'dependencies\\lib\\sfmlnet-window-2.dll'
+	'dependencies\\lib\\sfmlnet-window-2.dll',
+	'dependencies\lib\Newtonsoft.Json.dll',
 ]
 
 src = 'src\\*.cs'
