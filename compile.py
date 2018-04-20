@@ -22,9 +22,9 @@ compilerArgs = [
 
 commands = [
 	' '.join(['"' + csc + '"', src, ' '.join(compilerArgs)]),
-	'xcopy res out\\res\\ /s /e',
-	'xcopy dependencies\\extlibs out\\ /s /e',
-	'xcopy dependencies\\lib out\\ /s /e'
+	'xcopy res out\\res\\ /s /e /y',
+	'xcopy dependencies\\extlibs out\\ /s /e /y',
+	'xcopy dependencies\\lib out\\ /s /e /y'
 ]
 
 for cmd in commands:
