@@ -22,7 +22,7 @@ namespace Client
             InitializeGameStates(window);
 
             Stopwatch deltaTimer = new Stopwatch(); // Do pętli stałokrokowej
-            float deltaTime = 0; //-||-
+            float deltaTime = 0;  //-||-
             while (window.IsOpen) 
             {
                 deltaTime += deltaTimer.ElapsedMilliseconds; //-||-
