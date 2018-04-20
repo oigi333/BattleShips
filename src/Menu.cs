@@ -8,21 +8,26 @@ namespace GameStates
 {
     public class Menu : IGameState
     {
+        Font _font;
+        Text _title;
+        Text _playText;
+        Text _exitText;
+
         public Menu() {}
 
         public void Init(RenderWindow window) 
         {
-            _font = new Font(@"res/fonts/Bungee-Regular.ttf"); // Tworze se _font co znalazłem gdzieś na dysku; "@" pomija \n itp
-            _title = new Text("BattleSheeps",_font,80); // W zasadzie mogłem sobie ustawić właściwości nie przez konstruktor, ale jak pozwalają tak to czm nie
-            _title.Position = new Vector2f((window.Size.X - _title.GetGlobalBounds().Width) / 2, 80); // Mówi raczej samo za siebie ustawiam tekst na środku poziomo 10px od góry
+            _font = new Font(@"res/fonts/Bungee-Regular.ttf");
+            _title = new Text("BattleShips", _font, 80);
+            _title.Position = new Vector2f((window.Size.X - _title.GetGlobalBounds().Width) / 2, 80); 
             _playText = new Text("Graj", _font, 50);
             _playText.Position = new Vector2f(
-                (window.Size.X - _playText.GetGlobalBounds().Width) / 2, // jak wyżej 
-                _title.Position.Y + _title.GetGlobalBounds().Height+60); // relatywnie do poprzedniego o 50 px w dół
+                (window.Size.X - _playText.GetGlobalBounds().Width) / 2, 
+                _title.Position.Y + _title.GetGlobalBounds().Height + 60); 
             _exitText = new Text("Wyjscie", _font, 50);
             _exitText.Position = new Vector2f(
-                (window.Size.X - _exitText.GetGlobalBounds().Width) / 2, // jak wyżej 
-                _playText.Position.Y + _playText.GetGlobalBounds().Height + 30); // relatywnie do poprzedniego o 50 px w dół
+                (window.Size.X - _exitText.GetGlobalBounds().Width) / 2, 
+                _playText.Position.Y + _playText.GetGlobalBounds().Height + 30); 
         }
         
 
@@ -36,30 +41,24 @@ namespace GameStates
 
         public void Update(RenderWindow window) 
         {
-            Vector2i mousePosition = Mouse.GetPosition(window); //Pozycja myszki relatywnie do okna
-            if (_playText.GetGlobalBounds().Contains(mousePosition.X, mousePosition.Y)) // jeżeli prostokąt tworzony przez playText zawiera w sobie pozycję myszki to:
+            Vector2i mousePosition = Mouse.GetPosition(window); 
+            if (_playText.GetGlobalBounds().Contains(mousePosition.X, mousePosition.Y)) 
             {
-                _playText.Color = Color.Cyan; // jestem leniwy
-                if (Mouse.IsButtonPressed(Mouse.Button.Left)) // jeżeli kliknięto
-                    ; // jak już będzie co robić dalej to tu
+                _playText.Color = Color.Cyan; 
+                if (Mouse.IsButtonPressed(Mouse.Button.Left))
+                    Console.WriteLine("[Start the game]"); 
             }
             else
-                _playText.Color = Color.White; // Znów biały
+                _playText.Color = Color.White; 
 
-            if (_exitText.GetGlobalBounds().Contains(mousePosition.X, mousePosition.Y)) // jak wcześniej troche
+            if (_exitText.GetGlobalBounds().Contains(mousePosition.X, mousePosition.Y)) 
             {
-                _exitText.Color = Color.Cyan; // same
+                _exitText.Color = Color.Cyan; 
                 if (Mouse.IsButtonPressed(Mouse.Button.Left))
-                    window.Close(); // zamykamy okno
+                    window.Close(); 
             }
             else
                 _exitText.Color = Color.White;
         }
-
-        Font _font;
-        Text _title;
-        Text _playText;
-        Text _exitText; 
-    
     }
 }

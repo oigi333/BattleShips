@@ -9,18 +9,13 @@ namespace GameStates
 {
     public static class GameStateManager
     {
+        private static String _current = null;
         public static Dictionary<String,IGameState> GameStates = new Dictionary<String,IGameState>();
 
         public static String Current
         {
-            get
-            {
-                return _current;
-            }
-            set 
-            {
-                _current = value;
-            }
+            get { return _current; }
+            set { _current = value; }
         } 
 
         public static void Add<GameState>(String name, RenderWindow window) where GameState : IGameState, new()
@@ -40,8 +35,5 @@ namespace GameStates
         {
             GameStates[Current].Update(window);
         }
-
-
-        private static String _current = null;
     }    
 }

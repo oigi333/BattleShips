@@ -12,17 +12,17 @@ lib = 'dependencies\\extlibs\\'
 out = 'out\\BattleShipsClient.exe'
 csc = 'C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\MSBuild\\15.0\\Bin\\Roslyn\\csc.exe'
 
-
 compilerArgs = [
 	'-out:' + out,
-	'-langversion:7',
 	'-lib:' + lib,
-	'-platform:x64',
-	'-reference:' + ','.join(references)
+	'-reference:' + ','.join(references),
+	'-langversion:7',
+	'-platform:x64'
 ]
 
 commands = [
 	' '.join(['"' + csc + '"', src, ' '.join(compilerArgs)]),
+	'xcopy res\\* out\\res\\ /s /e',
 	'copy dependencies\\extlibs\\* out\\',
 	'copy dependencies\\lib\\* out\\'
 ]
