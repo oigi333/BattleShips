@@ -17,7 +17,8 @@ compilerArgs = [
 	'-lib:' + lib,
 	'-reference:' + ','.join(references),
 	'-langversion:7',
-	'-platform:x64'
+	'-platform:x64',
+	'-target:winexe'
 ]
 
 commands = [
