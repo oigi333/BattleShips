@@ -1,0 +1,18 @@
+{
+	"en": {
+		"name": "English",
+		"lang": {
+			"title": "Battleships",
+			"play": "Play",
+			"quit": "Quit"
+		}
+	},
+	"pl": {
+		"name": "Polski",
+		"lang": {
+			"title": "Statki",
+			"play": "Graj",
+			"quit": "Wyjście"
+		}
+	}
+}
