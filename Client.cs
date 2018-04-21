@@ -22,10 +22,13 @@ namespace Client
             LanguageManager.Init("res/lang.json");
             LanguageManager.SetCurrent("pl");
 
+            AssetManager.Add<Font >("Bungee",@"res/fonts/Bungee-Regular.ttf");
+            AssetManager.Add<Texture>("SettingsIcon",@"res/img/settings.png");
+
             InitializeGameStates(window);
 
             Stopwatch deltaTimer = new Stopwatch();
-            float deltaTime = 0;
+            float deltaTime =  0;
             while (window.IsOpen) 
             {
                 deltaTime += deltaTimer.ElapsedMilliseconds;
