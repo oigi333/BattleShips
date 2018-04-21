@@ -15,7 +15,10 @@ namespace GameStates
         public static String Current
         {
             get { return _current; }
-            set { _current = value; }
+            set
+            {
+                if(GameStates.ContainsKey(value)) _current = value;
+            }
         } 
 
         public static void Add<GameState>(String name, RenderWindow window) where GameState : IGameState, new()
@@ -27,7 +30,6 @@ namespace GameStates
 
         public static void Show(RenderWindow window)
         {
-            window.SetTitle(GameStates.Count.ToString());
             GameStates[Current].Show(window);
         }
 

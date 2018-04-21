@@ -52,6 +52,7 @@ namespace Client
         {
             GameStates.GameStateManager.Current = "Menu";
             GameStates.GameStateManager.Add<GameStates.Menu>("Menu", window);
+            GameStates.GameStateManager.Current = "Menu";
         }
     }
 }
