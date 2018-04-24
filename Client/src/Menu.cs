@@ -9,9 +9,9 @@ namespace GameStates
     public class Menu : IGameState
     {
         Text title;
-        Sprite settingsButton;
-        Sprite playButton;
-        Sprite portBackground;
+        GUI.Button settingsButton;
+        GUI.Button playButton;
+        Sprite background;
         Shader blurShader;
 
         public Menu() {}
@@ -21,28 +21,33 @@ namespace GameStates
             title = new Text(LanguageManager.Current["title"],AssetManager.Fonts["Bungee"], 80);
             title.Position = new Vector2f((window.Size.X - title.GetGlobalBounds().Width) / 2, 80);
 
-            portBackground = new Sprite(AssetManager.Textures["PortBackground"])
+            background = new Sprite(AssetManager.Textures["PortBackground"])
             {
-                Scale = new Vector2f((float)window.Size.X / AssetManager.Textures["PortBackground"].Size.X, (float)window.Size.Y / AssetManager.Textures["PortBackground"].Size.Y),
-                Color = new Color(200, 200, 200)
+                Scale = new Vector2f((float)window.Size.X / AssetManager.Textures["PortBackground"].Size.X, (float)window.Size.Y / AssetManager.Textures["PortBackground"].Size.Y)
             };
 
-            settingsButton = new Sprite(AssetManager.Textures["SettingsIcon"])
-            {
-                Scale = new Vector2f(60f / AssetManager.Textures["SettingsIcon"].Size.X, 60f / AssetManager.Textures["SettingsIcon"].Size.Y),
-                Position = new Vector2f(30, window.Size.Y - 60 - 30)
+            settingsButton = new GUI.Button(
+                AssetManager.Textures["SettingsIcon"],
+                30,
+                window.Size.Y - 90,
+                60f / AssetManager.Textures["SettingsIcon"].Size.X,
+                60f / AssetManager.Textures["SettingsIcon"].Size.Y
+            ) {
+                OnClick = () => Console.WriteLine("[Open settings]")
             };
 
-            playButton = new Sprite(AssetManager.Textures["PlayIcon"])
-            {
-                Scale = new Vector2f(80f / AssetManager.Textures["PlayIcon"].Size.X, 80f / AssetManager.Textures["PlayIcon"].Size.Y),
-                Position = new Vector2f((window.Size.X - 80) / 2, (window.Size.Y - 80) / 2)
+            playButton = new GUI.Button(
+                AssetManager.Textures["PlayIcon"],
+                (window.Size.X - 80) / 2,
+                (window.Size.Y - 80) / 2,
+                80f / AssetManager.Textures["PlayIcon"].Size.X,
+                80f / AssetManager.Textures["PlayIcon"].Size.Y
+            ) {
+                OnClick = () => Console.WriteLine("[Start the game]")
             };
-
-
 
             blurShader = new Shader(@"res/shaders/basic.vert", @"res/shaders/blur.frag");
-            blurShader.SetParameter("blurRadius", 0.3f);
+            blurShader.SetParameter("blurRadius", 1000);
             blurShader.SetParameter("texture", Shader.CurrentTexture);
         }
         
@@ -50,7 +55,7 @@ namespace GameStates
         {
             window.Clear(new Color(0, 0, 100));
 
-            window.Draw(portBackground, new RenderStates(blurShader));
+            window.Draw(background/*, new RenderStates(blur)*/);
             window.Draw(title);
             window.Draw(settingsButton);
             window.Draw(playButton);
@@ -59,8 +64,8 @@ namespace GameStates
 
         public void Update(RenderWindow window) 
         {
-            Vector2i mousePosition = Mouse.GetPosition(window);
-            // (new List<(Text Text, Action SthToDo)>(){( _playText, () => {Console.WriteLine("[Start the game]");} ), ( _exitText, () => {window.Close();} ) }).ForEach(button =>{if((button.Text.GetGlobalBounds().Contains(mousePosition.X, mousePosition.Y)? ( button.Text.Color = Color.Cyan) == Color.Cyan: ( button.Text.Color = Color.White) == Color.Cyan)&&Mouse.IsButtonPressed(Mouse.Button.Left)) button.SthToDo(); });
+            playButton.Update(window);
+            settingsButton.Update(window);
         }
         
     }
