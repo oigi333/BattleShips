@@ -16,9 +16,9 @@ namespace GameStates
 
         public Menu() {}
 
-        public void Init(RenderWindow window) 
+        public void Init(RenderWindow window)
         {
-            title = new Text(LanguageManager.Current["title"],AssetManager.Fonts["Bungee"], 80);
+            title = new Text(LanguageManager.Current["title"], AssetManager.Fonts["Bungee"], 80);
             title.Position = new Vector2f((window.Size.X - title.GetGlobalBounds().Width) / 2, 80);
 
             background = new Sprite(AssetManager.Textures["PortBackground"])
@@ -29,26 +29,24 @@ namespace GameStates
 
             settingsButton = new GUI.Button(
                 "SettingsIcon",
-                new Vector2f( 30, window.Size.Y - 90 ),
+                new Vector2f(30, window.Size.Y - 90),
                 new Vector2f(
                     60f / AssetManager.Textures["SettingsIcon"].Size.X,
                     60f / AssetManager.Textures["SettingsIcon"].Size.Y
                 )
-            ) {
-                OnClick = () => Console.WriteLine("[Open settings]")
-            };
+            );
+            settingsButton.Clicked += (sender, args) => { Console.WriteLine("[Settings]"); };
+
 
             playButton = new GUI.Button(
                 "PlayIcon",
-                new Vector2f(window.Size.X/2-40, window.Size.Y/2 - 40),
+                new Vector2f(window.Size.X / 2 - 40, window.Size.Y / 2 - 40),
                 new Vector2f(
                     80f / AssetManager.Textures["PlayIcon"].Size.X,
                     80f / AssetManager.Textures["PlayIcon"].Size.Y
                 )
-            ) {
-                OnClick = () => Console.WriteLine("[Start the game]")
-                
-            };
+            );
+            playButton.Clicked += (sender, args) => { Console.WriteLine("[Play the Game]"); };
 
             blurShader = new Shader(@"res/shaders/basic.vert", @"res/shaders/blur.frag");
             blurShader.SetParameter("blurRadius", 2/3);

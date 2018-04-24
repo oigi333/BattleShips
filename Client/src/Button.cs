@@ -11,22 +11,62 @@ namespace GUI
 {
     class Button : Transformable, Drawable
     {
-        public Action OnDown { private get; set; } = () => { };
-        public Action OnUp { private get; set; } = () => { };
-        public Action OnClick { private get; set; } = () => { };
+        public event EventHandler Down;  //Znaczy tu się eventy proszą o użycie, błagają, mówią: "Po to tu jesteśmy!"
+        public event EventHandler Up; //Eventy dają też dodatkowe możliwości
+        public event EventHandler Clicked; // Z których nie wiem czy skorzystamy
+
+        public Color Color {
+            get
+            {
+                return color;
+            }
+            set
+            {
+                buttonSprite.Color = color;
+                color = value;
+            }
+        }
+        public String Texture {
+            get
+            {
+                return texture;
+            }
+            set
+            {
+                buttonSprite.Texture = AssetManager.Textures[value];
+                texture = value;
+            }
+        }
+        public IntRect TextureRect
+        {
+            get
+            {
+                return textureRect;
+            }
+            set
+            {
+                buttonSprite.TextureRect = textureRect;
+                textureRect = value;
+            }
+        }
+
         private bool lastPressed = false;
         private bool lastDown = false;
         private Sprite buttonSprite;
-
+        private String texture;
+        private IntRect textureRect;
+        private Color color = Color.White;
 
         public Button(String texture)
         {
-            buttonSprite = new Sprite(AssetManager.Textures[texture]); 
+            buttonSprite = new Sprite(AssetManager.Textures[texture]);
+            Texture = texture;
         }
 
         public Button(String texture, Vector2f position, Vector2f scale)
         {
             buttonSprite = new Sprite(AssetManager.Textures[texture]);
+            Texture = texture;
             Position = position;
             Scale = scale;
         }
@@ -40,7 +80,7 @@ namespace GUI
                 if (GetGlobalBounds().Contains(mousePosition.X, mousePosition.Y))
                 {
                     lastDown = true;
-                    OnDown();
+                    Down?.Invoke(window, new EventArgs()); // cośtam? to skrót od cośtam==null?null:cośtam
                 }
                 lastPressed = true;
             }
@@ -49,8 +89,8 @@ namespace GUI
                 lastPressed = false;
                 if (GetGlobalBounds().Contains(mousePosition.X, mousePosition.Y))
                 {
-                    OnUp();
-                    if(lastDown) OnClick();
+                    Up?.Invoke(window, new EventArgs());
+                    if (lastDown) Clicked?.Invoke(window, new EventArgs());
                 }
                 lastDown = false;
             }
