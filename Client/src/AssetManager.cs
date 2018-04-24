@@ -12,7 +12,7 @@ public class AssetManager
     
     public static void Add<T>(String key, String fileName) 
     {
-        if(typeof(T) ==  typeof(Font))
+        if(typeof(T) == typeof(Font))
             Fonts.Add(key,new Font(fileName));
         if(typeof(T) == typeof(Texture))
             Textures.Add(key,new Texture(fileName));

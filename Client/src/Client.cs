@@ -16,21 +16,21 @@ namespace Client
     {
         static void Main()
         {
-            RenderWindow  window = new RenderWindow(new VideoMode(1000, 500), "BattleShips", Styles.Close, new ContextSettings(16, 0, 4));
+            RenderWindow window = new RenderWindow(new VideoMode(1000, 500), "BattleShips", Styles.Close, new ContextSettings(16, 0, 4));
             window.Closed += (sender, eventArg) => window.Close();
 
             LanguageManager.Init("res/lang.json");
             LanguageManager.SetCurrent("pl");
 
-            AssetManager.Add<Font >("Bungee",@"res/fonts/Bungee-Regular.ttf");
-            AssetManager.Add<Texture>("SettingsIcon",@"res/img/settingsIcon.png");
+            AssetManager.Add<Font>("Bungee", @"res/fonts/Bungee-Regular.ttf");
+            AssetManager.Add<Texture>("SettingsIcon", @"res/img/settingsIcon.png");
             AssetManager.Add<Texture>("PlayIcon", @"res/img/playIcon.png");
             AssetManager.Add<Texture>("PortBackground", @"res/img/portBackground.png");
 
             InitializeGameStates(window);
 
             Stopwatch deltaTimer = new Stopwatch();
-            float deltaTime =  0;
+            float deltaTime = 0;
             while (window.IsOpen) 
             {
                 deltaTime += deltaTimer.ElapsedMilliseconds;
