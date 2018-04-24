@@ -51,7 +51,7 @@ namespace GameStates
         {
             window.Clear(new Color(0, 0, 100));
 
-            window.Draw(portBackground);//, new RenderStates(blur));
+            window.Draw(portBackground);// , new RenderStates(blur));
             window.Draw(title);
             window.Draw(settingsButton);
             window.Draw(playButton);
