@@ -9,20 +9,26 @@ using SFML.Window;
 
 namespace GUI
 {
-    class Button : Sprite
+    class Button : Transformable, Drawable
     {
         public Action OnDown { private get; set; } = () => { };
         public Action OnUp { private get; set; } = () => { };
         public Action OnClick { private get; set; } = () => { };
         private bool lastPressed = false;
         private bool lastDown = false;
+        private Sprite buttonSprite;
 
-        public Button(Texture texture) : base(texture) { }
 
-        public Button(Texture texture, float x, float y, float w, float h) : base(texture)
+        public Button(String texture)
         {
-            Position = new Vector2f(x, y);
-            Scale = new Vector2f(w, h);
+            buttonSprite = new Sprite(AssetManager.Textures[texture]); 
+        }
+
+        public Button(String texture, Vector2f position, Vector2f scale)
+        {
+            buttonSprite = new Sprite(AssetManager.Textures[texture]);
+            Position = position;
+            Scale = scale;
         }
 
         public void Update(RenderWindow window)
@@ -48,6 +54,17 @@ namespace GUI
                 }
                 lastDown = false;
             }
+        }
+
+        public void Draw(RenderTarget target, RenderStates states)
+        {
+            states.Transform *= Transform;
+            target.Draw(buttonSprite, states);
+        }
+
+        public FloatRect GetGlobalBounds()
+        {
+            return new FloatRect(Position,new Vector2f(Scale.X*buttonSprite.Texture.Size.X, Scale.Y * buttonSprite.Texture.Size.Y));
         }
     }
 }

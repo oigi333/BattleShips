@@ -23,31 +23,35 @@ namespace GameStates
 
             background = new Sprite(AssetManager.Textures["PortBackground"])
             {
-                Scale = new Vector2f((float)window.Size.X / AssetManager.Textures["PortBackground"].Size.X, (float)window.Size.Y / AssetManager.Textures["PortBackground"].Size.Y)
+                Scale = new Vector2f((float)window.Size.X / AssetManager.Textures["PortBackground"].Size.X, (float)window.Size.Y / AssetManager.Textures["PortBackground"].Size.Y),
+                Color = new Color(170, 170, 170)
             };
 
             settingsButton = new GUI.Button(
-                AssetManager.Textures["SettingsIcon"],
-                30,
-                window.Size.Y - 90,
-                60f / AssetManager.Textures["SettingsIcon"].Size.X,
-                60f / AssetManager.Textures["SettingsIcon"].Size.Y
+                "SettingsIcon",
+                new Vector2f( 30, window.Size.Y - 90 ),
+                new Vector2f(
+                    60f / AssetManager.Textures["SettingsIcon"].Size.X,
+                    60f / AssetManager.Textures["SettingsIcon"].Size.Y
+                )
             ) {
                 OnClick = () => Console.WriteLine("[Open settings]")
             };
 
             playButton = new GUI.Button(
-                AssetManager.Textures["PlayIcon"],
-                (window.Size.X - 80) / 2,
-                (window.Size.Y - 80) / 2,
-                80f / AssetManager.Textures["PlayIcon"].Size.X,
-                80f / AssetManager.Textures["PlayIcon"].Size.Y
+                "PlayIcon",
+                new Vector2f(window.Size.X/2-40, window.Size.Y/2 - 40),
+                new Vector2f(
+                    80f / AssetManager.Textures["PlayIcon"].Size.X,
+                    80f / AssetManager.Textures["PlayIcon"].Size.Y
+                )
             ) {
                 OnClick = () => Console.WriteLine("[Start the game]")
+                
             };
 
             blurShader = new Shader(@"res/shaders/basic.vert", @"res/shaders/blur.frag");
-            blurShader.SetParameter("blurRadius", 1000);
+            blurShader.SetParameter("blurRadius", 2/3);
             blurShader.SetParameter("texture", Shader.CurrentTexture);
         }
         
@@ -55,7 +59,7 @@ namespace GameStates
         {
             window.Clear(new Color(0, 0, 100));
 
-            window.Draw(background/*, new RenderStates(blur)*/);
+            window.Draw(background, new RenderStates(blurShader));
             window.Draw(title);
             window.Draw(settingsButton);
             window.Draw(playButton);
