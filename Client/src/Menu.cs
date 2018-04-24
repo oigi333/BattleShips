@@ -8,9 +8,12 @@ namespace GameStates
 {
     public class Menu : IGameState
     {
-        Font font;
         Text title;
-        Sprite settingsIcon;
+        Sprite settingsButton;
+        Sprite playButton;
+        Sprite portBackground;
+        Shader blur;
+
 
         public Menu() {}
 
@@ -18,23 +21,46 @@ namespace GameStates
         {
             title = new Text(LanguageManager.Current["title"],AssetManager.Fonts["Bungee"], 80);
             title.Position = new Vector2f((window.Size.X - title.GetGlobalBounds().Width) / 2, 80);
-            settingsIcon = new Sprite(AssetManager.Textures["SettingsIcon"]);
-            settingsIcon.Scale = new Vector2f(60f / (float)AssetManager.Textures["SettingsIcon"].Size.X, 60f / (float)AssetManager.Textures["SettingsIcon"].Size.Y);
 
+            portBackground = new Sprite(AssetManager.Textures["PortBackground"])
+            {
+                Scale = new Vector2f((float)window.Size.X / AssetManager.Textures["PortBackground"].Size.X, (float)window.Size.Y / AssetManager.Textures["PortBackground"].Size.Y)
+            };
+
+            settingsButton = new Sprite(AssetManager.Textures["SettingsIcon"])
+            {
+                Scale = new Vector2f(60f / (float)AssetManager.Textures["SettingsIcon"].Size.X, 60f / (float)AssetManager.Textures["SettingsIcon"].Size.Y),
+                Position = new Vector2f(30, window.Size.Y - 60 - 30)
+            };
+
+            playButton = new Sprite(AssetManager.Textures["PlayIcon"])
+            {
+                Scale = new Vector2f(80f / (float)AssetManager.Textures["PlayIcon"].Size.X, 80f / (float)AssetManager.Textures["PlayIcon"].Size.Y),
+                Position = new Vector2f((window.Size.X - 80) / 2, (window.Size.Y - 80) / 2)
+            };
+
+
+
+            blur = new Shader(@"res/shaders/basic.vert", @"res/shaders/blur.frag");
+            blur.SetParameter("blurRadius", 1000);
+            blur.SetParameter("texture", Shader.CurrentTexture);
         }
         
 
         public void Show(RenderWindow window) 
         {
             window.Clear(new Color(0, 0, 100));
+
+            window.Draw(portBackground);//, new RenderStates(blur));
             window.Draw(title);
-            window.Draw(settingsIcon);
+            window.Draw(settingsButton);
+            window.Draw(playButton);
+          
         }
 
         public void Update(RenderWindow window) 
         {
-            Vector2i mousePosition = Mouse.GetPosition(window); 
-
+            Vector2i mousePosition = Mouse.GetPosition(window);
             // (new List<(Text Text, Action SthToDo)>(){( _playText, () => {Console.WriteLine("[Start the game]");} ), ( _exitText, () => {window.Close();} ) }).ForEach(button =>{if((button.Text.GetGlobalBounds().Contains(mousePosition.X, mousePosition.Y)? ( button.Text.Color = Color.Cyan) == Color.Cyan: ( button.Text.Color = Color.White) == Color.Cyan)&&Mouse.IsButtonPressed(Mouse.Button.Left)) button.SthToDo(); });
         }
         

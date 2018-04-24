@@ -11,6 +11,7 @@ namespace GameStates
     {
         private static String _current = null;
         public static Dictionary<String,IGameState> GameStates = new Dictionary<String,IGameState>();
+        public static float DeltaTime;
 
         public static String Current
         {

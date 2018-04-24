@@ -36,6 +36,10 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="res\fonts\Bungee-Regular.ttf" />
+    <None Include="res\lang.json" />
+    <None Include="res\shaders\blur.frag" />
+    <None Include="res\shaders\basic.vert" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\AssetManager.cs" />
@@ -69,10 +73,15 @@
     <Reference Include="System" />
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="res\img\playIcon.png" />
+    <Content Include="res\img\settingsIcon.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Baseclass.Contrib.Nuget.Output.1.0.0\build\net40\Baseclass.Contrib.Nuget.Output.targets" Condition="Exists('..\packages\Baseclass.Contrib.Nuget.Output.1.0.0\build\net40\Baseclass.Contrib.Nuget.Output.targets')" />
   <PropertyGroup>
-    <PostBuildEvent>copy $(ProjectDir)dependencies\extlibs\* $(TargetDir)  /y;
-xcopy $(ProjectDir)res $(TargetDir)res\ /s /e /y</PostBuildEvent>
+    <PostBuildEvent>rd /s /q "$(TargetDir)res\"
+copy $(ProjectDir)dependencies\extlibs\* $(TargetDir)  /y;
+xcopy $(ProjectDir)res $(TargetDir)res\ /s  /e /y</PostBuildEvent>
   </PropertyGroup>
 </Project>
