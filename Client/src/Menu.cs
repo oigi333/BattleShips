@@ -12,8 +12,7 @@ namespace GameStates
         Sprite settingsButton;
         Sprite playButton;
         Sprite portBackground;
-        Shader blur;
-
+        Shader blurShader;
 
         public Menu() {}
 
@@ -29,29 +28,28 @@ namespace GameStates
 
             settingsButton = new Sprite(AssetManager.Textures["SettingsIcon"])
             {
-                Scale = new Vector2f(60f / (float)AssetManager.Textures["SettingsIcon"].Size.X, 60f / (float)AssetManager.Textures["SettingsIcon"].Size.Y),
+                Scale = new Vector2f(60f / AssetManager.Textures["SettingsIcon"].Size.X, 60f / AssetManager.Textures["SettingsIcon"].Size.Y),
                 Position = new Vector2f(30, window.Size.Y - 60 - 30)
             };
 
             playButton = new Sprite(AssetManager.Textures["PlayIcon"])
             {
-                Scale = new Vector2f(80f / (float)AssetManager.Textures["PlayIcon"].Size.X, 80f / (float)AssetManager.Textures["PlayIcon"].Size.Y),
+                Scale = new Vector2f(80f / AssetManager.Textures["PlayIcon"].Size.X, 80f / AssetManager.Textures["PlayIcon"].Size.Y),
                 Position = new Vector2f((window.Size.X - 80) / 2, (window.Size.Y - 80) / 2)
             };
 
 
 
-            blur = new Shader(@"res/shaders/basic.vert", @"res/shaders/blur.frag");
-            blur.SetParameter("blurRadius", 1000);
-            blur.SetParameter("texture", Shader.CurrentTexture);
+            blurShader = new Shader(@"res/shaders/basic.vert", @"res/shaders/blur.frag");
+            blurShader.SetParameter("blurRadius", 1000);
+            blurShader.SetParameter("texture", Shader.CurrentTexture);
         }
         
-
         public void Show(RenderWindow window) 
         {
             window.Clear(new Color(0, 0, 100));
 
-            window.Draw(portBackground);//, new RenderStates(blur));
+            window.Draw(portBackground/*, new RenderStates(blur)*/);
             window.Draw(title);
             window.Draw(settingsButton);
             window.Draw(playButton);

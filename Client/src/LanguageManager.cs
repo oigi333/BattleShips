@@ -5,12 +5,12 @@ using System.IO;
 
 public class LanguageManager
 {
-    public static Dictionary<string, Language> Languages;
+    public static Dictionary<String,Language> Languages;
 
     public static void Init(String fileName)
     {
         String json = File.ReadAllText(fileName);
-        Languages = JsonConvert.DeserializeObject<Dictionary<string, Language>>(json);
+        Languages = JsonConvert.DeserializeObject<Dictionary<String,Language>>(json);
     }
 
     public static Language Current
@@ -23,23 +23,23 @@ public class LanguageManager
     {
         Current = Languages[lang];
 
-        Console.WriteLine("Language: {0} enabled.", Current.Name);
+        Console.WriteLine("Language: {0} enabled:", Current.Name);
         foreach (var pair in Current.Strings)
         {
-            Console.WriteLine("{0}: {1}", pair.Key, pair.Value);
+            Console.WriteLine("  {0}: {1}", pair.Key, pair.Value);
         }
     }
 
     public class Language
     {
-        [JsonProperty(PropertyName = "name")]
+        [JsonProperty(PropertyName="name")]
         public String Name;
-        [JsonProperty(PropertyName = "lang")]
+        [JsonProperty(PropertyName="lang")]
         public Dictionary<String,String> Strings;
 
         public String this[String key]
         {
-            get{ return Strings[key];}
+            get { return Strings[key]; }
         }
     }
 }
