@@ -38,10 +38,7 @@ namespace GUI
 
 
         public Color Color {
-            get
-            {
-                return color;
-            }
+            get { return color; }
             set
             {
                 buttonSprite.Color = value;
@@ -49,10 +46,7 @@ namespace GUI
             }
         }
         public String Texture {
-            get
-            {
-                return texture;
-            }
+            get {  return texture; }
             set
             {
                 buttonSprite.Texture = AssetManager.Textures[value];
@@ -61,10 +55,7 @@ namespace GUI
         }
         public IntRect TextureRect
         {
-            get
-            {
-                return textureRect;
-            }
+            get { return textureRect; }
             set
             {
                 buttonSprite.TextureRect = value;
@@ -77,8 +68,7 @@ namespace GUI
         private IntRect textureRect;
         private Color color = Color.White;
         private bool lastHover = false;
-        private bool lastPressed = false;
-
+        private bool lastMousePressed = false;
 
         /// <summary>
         /// Constructs a button using a sprite with the given texture.
@@ -112,29 +102,38 @@ namespace GUI
         {
             Vector2i mousePosition = Mouse.GetPosition(window);
 
-            if (GetGlobalBounds().Contains(mousePosition.X, mousePosition.Y))
-            {
-                if (!lastHover)
-                    MouseEntered?.Invoke(this, new EventArgs());
-                Hover?.Invoke(this, new EventArgs());
-                lastHover = true;
+			bool hovered = false;
+			if (GetGlobalBounds().Contains(mousePosition.X, mousePosition.Y))
+			{
+				if (!lastHover)
+				{
+					MouseEntered?.Invoke(this, new EventArgs());
+				}
+				Hover?.Invoke(this, new EventArgs());
+				hovered = lastHover = true;
+			}
+			else if (lastHover)
+			{
+				MouseLeave?.Invoke(this, new EventArgs());
+				lastHover = false;
+			}
 
-                if (Mouse.IsButtonPressed(Mouse.Button.Left))
-                {
-                    if (!lastPressed)
-                        Clicked?.Invoke(this, new EventArgs());
-                    Pressed?.Invoke(this, new EventArgs());
-                    lastPressed = true;
-                }
-                else
-                    lastPressed = false;
-            }
-            else if (lastHover)
-            {
-                MouseLeave?.Invoke(this, new EventArgs());
-                lastHover = false;
-            }
-         
+			if (Mouse.IsButtonPressed(Mouse.Button.Left))
+			{
+				if (hovered)
+				{
+					if (!lastMousePressed)
+					{
+						Clicked?.Invoke(this, new EventArgs());
+					}
+					Pressed?.Invoke(this, new EventArgs());
+				}
+				lastMousePressed = true;
+			}
+			else
+			{
+				lastMousePressed = false;
+			}
         }
 
         public void Draw(RenderTarget target, RenderStates states)
