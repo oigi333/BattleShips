@@ -27,6 +27,7 @@ namespace GameStates
                 Color = new Color(170, 170, 170)
             };
 
+
             settingsButton = new GUI.Button(
                 "SettingsIcon",
                 new Vector2f(30, window.Size.Y - 90),
@@ -35,8 +36,10 @@ namespace GameStates
                     60f / AssetManager.Textures["SettingsIcon"].Size.Y
                 )
             );
+            settingsButton.Hover += (sender, args) => { (sender as GUI.Button).Color = Color.Cyan; };
+            settingsButton.MouseLeave += (sender, args) => { (sender as GUI.Button).Color = Color.White; };
             settingsButton.Clicked += (sender, args) => { Console.WriteLine("[Settings]"); };
-
+            
 
             playButton = new GUI.Button(
                 "PlayIcon",
@@ -46,6 +49,8 @@ namespace GameStates
                     80f / AssetManager.Textures["PlayIcon"].Size.Y
                 )
             );
+            playButton.Hover += (sender, args) => {  (sender as GUI.Button).Color = Color.Cyan;  };
+            playButton.MouseLeave += (sender,args) => { (sender as GUI.Button).Color = Color.White; };
             playButton.Clicked += (sender, args) => { Console.WriteLine("[Play the Game]"); };
 
             blurShader = new Shader(@"res/shaders/basic.vert", @"res/shaders/blur.frag");
