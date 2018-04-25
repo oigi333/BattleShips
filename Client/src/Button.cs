@@ -9,31 +9,30 @@ using SFML.Window;
 
 namespace GUI
 {
-    //polecam zamykać summary(taki minusik po lewej)
-
     /// <summary>
-    /// Button, currently only with Sprite though.
+    /// A drawable, clickable button.
+	/// Currently only supports sprites.
     /// </summary>
     class Button : Transformable, Drawable
     {
         /// <summary>
-        /// Occur when button is clicked. It occur one time in a row.
+        /// Occures when the button is clicked, once.
         /// </summary>
         public event EventHandler Clicked;
         /// <summary>
-        /// Occur when button is pressed. By that, I mean mouse is over button and is pressed. It occur continous.
+        /// Called continuously (each update) when the button is pressed.
         /// </summary>
         public event EventHandler Pressed;
         /// <summary>
-        /// Occur when mouse is over button. 
+        /// Called continuously (each update) when the mouse cursor hovers over the button.
         /// </summary>
         public event EventHandler Hover;
         /// <summary>
-        /// Occur when mouse is over button, but in the previous frame it was somewhere else. 
+        /// Occures once when the mouse cursor enters the bounds of the button.
         /// </summary>
         public event EventHandler MouseEntered;
         /// <summary>
-        /// Occur when mouse in previous frame was over button, but now it's somewhere else. 
+        /// Occures once when the mouse cursor leaves the bounds of the button.
         /// </summary>
         public event EventHandler MouseLeave;
 
@@ -82,32 +81,33 @@ namespace GUI
 
 
         /// <summary>
-        /// Basic constructor.
+        /// Constructs a button using a sprite with the given texture.
         /// </summary>
-        /// <param name="texture">Yer AssetManager texture ID.</param>
+        /// <param name="texture">The texture ID used by the AssetManager</param>
         public Button(String texture)
         {
             buttonSprite = new Sprite(AssetManager.Textures[texture]);
             Texture = texture;
         }
-        /// <summary>
-        /// Basic Constructor with some more options.
-        /// </summary>
-        /// <param name="texture">Yer AssetManager texture ID.</param>
-        /// <param name="position">Wherever you want it to be</param>
-        /// <param name="scale">TODO Change Scale to size</param>
-        public Button(String texture, Vector2f position, Vector2f scale)
+		/// <summary>
+		/// Constructs a button using a sprite with the given texture
+		/// and transformation parameters.
+		/// </summary>
+		/// <param name="texture">The texture ID used by the AssetManager</param>
+		/// <param name="position">The position of the button</param>
+		/// <param name="size">The size of the button</param>
+		public Button(String texture, Vector2f position, Vector2f size)
         {
             buttonSprite = new Sprite(AssetManager.Textures[texture]);
             Texture = texture;
             Position = position;
-            Scale = scale;
+            Scale = new Vector2f(size.X / buttonSprite.Texture.Size.X, size.Y / buttonSprite.Texture.Size.Y);
         }
 
         /// <summary>
-        /// It's heart of button, so call it every time you're updating if you want it to works.
+        /// Updates the button calling all the appropriate events.
         /// </summary>
-        /// <param name="window">Yer window.</param>
+        /// <param name="window">The render window the button is located in</param>
         public void Update(RenderWindow window)
         {
             Vector2i mousePosition = Mouse.GetPosition(window);
@@ -144,9 +144,9 @@ namespace GUI
         }
 
         /// <summary>
-        /// You can think of it as a rectangle covering all your button.
+        /// The axis-aligned bounding box containing this button.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The bounding box as a rectangle</returns>
         public FloatRect GetGlobalBounds()
         {
             return new FloatRect(Position,new Vector2f(Scale.X*buttonSprite.Texture.Size.X, Scale.Y * buttonSprite.Texture.Size.Y));

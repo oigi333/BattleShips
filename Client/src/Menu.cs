@@ -31,27 +31,21 @@ namespace GameStates
             settingsButton = new GUI.Button(
                 "SettingsIcon",
                 new Vector2f(30, window.Size.Y - 90),
-                new Vector2f(
-                    60f / AssetManager.Textures["SettingsIcon"].Size.X,
-                    60f / AssetManager.Textures["SettingsIcon"].Size.Y
-                )
+                new Vector2f(60f, 60f)
             );
-            settingsButton.Hover += (sender, args) => { (sender as GUI.Button).Color = Color.Cyan; };
-            settingsButton.MouseLeave += (sender, args) => { (sender as GUI.Button).Color = Color.White; };
-            settingsButton.Clicked += (sender, args) => { Console.WriteLine("[Settings]"); };
+            settingsButton.Hover += (sender, args) => (sender as GUI.Button).Color = Color.Cyan;
+            settingsButton.MouseLeave += (sender, args) => (sender as GUI.Button).Color = Color.White;
+            settingsButton.Clicked += (sender, args) => Console.WriteLine("[Settings]");
             
 
             playButton = new GUI.Button(
                 "PlayIcon",
                 new Vector2f(window.Size.X / 2 - 40, window.Size.Y / 2 - 40),
-                new Vector2f(
-                    80f / AssetManager.Textures["PlayIcon"].Size.X,
-                    80f / AssetManager.Textures["PlayIcon"].Size.Y
-                )
+                new Vector2f(80f, 80f)
             );
-            playButton.Hover += (sender, args) => {  (sender as GUI.Button).Color = Color.Cyan;  };
-            playButton.MouseLeave += (sender,args) => { (sender as GUI.Button).Color = Color.White; };
-            playButton.Clicked += (sender, args) => { Console.WriteLine("[Play the Game]"); };
+            playButton.Hover += (sender, args) => (sender as GUI.Button).Color = Color.Cyan;
+            playButton.MouseLeave += (sender,args) => (sender as GUI.Button).Color = Color.White;
+            playButton.Clicked += (sender, args) => Console.WriteLine("[Play the Game]");
 
             blurShader = new Shader(@"res/shaders/basic.vert", @"res/shaders/blur.frag");
             blurShader.SetParameter("blurRadius", 2/3);
