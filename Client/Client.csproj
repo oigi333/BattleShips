@@ -42,13 +42,15 @@
     <None Include="res\shaders\basic.vert" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="src\AssetManager.cs" />
-    <Compile Include="src\Button.cs" />
+    <Compile Include="src\gameStates\Settings.cs" />
+    <Compile Include="src\managers\AssetManager.cs" />
+    <Compile Include="src\gui\Button.cs" />
     <Compile Include="src\Client.cs" />
-    <Compile Include="src\GameStateManager.cs" />
-    <Compile Include="src\IGameState.cs" />
-    <Compile Include="src\LanguageManager.cs" />
-    <Compile Include="src\Menu.cs" />
+    <Compile Include="src\managers\GameStateManager.cs" />
+    <Compile Include="src\gameStates\IGameState.cs" />
+    <Compile Include="src\managers\LanguageManager.cs" />
+    <Compile Include="src\gameStates\Menu.cs" />
+    <Compile Include="src\gui\SpriteButton.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">

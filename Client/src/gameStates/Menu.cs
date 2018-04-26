@@ -2,6 +2,7 @@ using System;
 using SFML.Window;
 using SFML.Graphics;
 using SFML.System;
+using SFML.Audio;
 using System.Collections.Generic;
 
 namespace GameStates
@@ -9,8 +10,8 @@ namespace GameStates
     public class Menu : IGameState
     {
         Text title;
-        GUI.Button settingsButton;
-        GUI.Button playButton;
+        Gui.SpriteButton settingsButton;
+        Gui.SpriteButton playButton;
         Sprite background;
         Shader blurShader;
 
@@ -28,23 +29,26 @@ namespace GameStates
             };
 
 
-            settingsButton = new GUI.Button(
+            settingsButton = new Gui.SpriteButton(
                 "SettingsIcon",
                 new Vector2f(30, window.Size.Y - 90),
                 new Vector2f(60f, 60f)
             );
-            settingsButton.Hover += (sender, args) => (sender as GUI.Button).Color = Color.Cyan;
-            settingsButton.MouseLeave += (sender, args) => (sender as GUI.Button).Color = Color.White;
-            settingsButton.Clicked += (sender, args) => Console.WriteLine("[Settings]");
-            
+            settingsButton.Hover += (sender, args) => (sender as Gui.Button).Color = Color.Cyan;
+            settingsButton.MouseLeave += (sender, args) => (sender as Gui.Button).Color = Color.White;
+            settingsButton.Clicked += (sender, args) => 
+                {
+                    Console.WriteLine("[Settings]");
+                    GameStateManager.Current = "Settings";
+                };
 
-            playButton = new GUI.Button(
+            playButton = new Gui.SpriteButton(
                 "PlayIcon",
                 new Vector2f(window.Size.X / 2 - 40, window.Size.Y / 2 - 40),
                 new Vector2f(80f, 80f)
             );
-            playButton.Hover += (sender, args) => (sender as GUI.Button).Color = Color.Cyan;
-            playButton.MouseLeave += (sender,args) => (sender as GUI.Button).Color = Color.White;
+            playButton.Hover += (sender, args) => (sender as Gui.Button).Color = Color.Cyan;
+            playButton.MouseLeave += (sender,args) => (sender as Gui.Button).Color = Color.White;
             playButton.Clicked += (sender, args) => Console.WriteLine("[Play the Game]");
 
             blurShader = new Shader(@"res/shaders/basic.vert", @"res/shaders/blur.frag");
